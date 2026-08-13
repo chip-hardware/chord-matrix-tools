@@ -5,7 +5,7 @@ A Python toolkit to automate harmonic progression generation based on the musica
 ---
 
 ### ⚠️ Legal Disclaimer
-This repository contains **only programmatic code**. It **DOES NOT** contain the original book text, images, or PDF files to prevent copyright issues. All raw text/PDF extraction files must be provided by the user locally.
+This repository contains **only programmatic code**. It **DOES NOT** contain the original book text, images, or PDF files to prevent copyright issues.
 
 ---
 
