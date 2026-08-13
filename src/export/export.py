@@ -94,7 +94,7 @@ def export_all_sequences():
     midi_output_dir = ROOT_DIR / "data" / "generated" / "midi"
     midi_output_dir.mkdir(parents=True, exist_ok=True)
     
-    for i, seq in enumerate(sequences[:10], 1):
+    for i, seq in enumerate(sequences, 1):
         filename = midi_output_dir / f"sequence_{i:03d}.mid"
         export_sequence_to_midi(seq, filename)
     
