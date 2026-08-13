@@ -1,0 +1,17 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Environments
+venv/
+.venv/
+
+# Author's copyrighted raw and parsed files
+data/raw/*
+data/parsed/*
+data/generated/*
+
+# Do not ignore structure files if any
+!data/raw/.gitkeep
+!data/parsed/.gitkeep
+!data/generated/.gitkeep
