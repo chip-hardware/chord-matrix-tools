@@ -1,4 +1,7 @@
 # Chord Matrix Tools 🎵
+![Status](https://shields.io)
+![Python](https://shields.io)
+![MIDI Output](https://shields.io)
 
 A Python toolkit to automate harmonic progression generation based on the musical concepts from the book **"The Chord Matrix"** by **Aaron Spacefood**.
 
