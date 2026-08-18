@@ -3,11 +3,11 @@ import random
 from pathlib import Path
 import datetime
 
-# Динамічно визначаємо корінь проєкту (на 2 рівні вгору від src/core/)
+# Dynamically determine the project root (go up 2 levels from src/core/)
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 def generate_all_sequences():
-    # Завантажуємо базу за правильним динамічним шляхом
+    # Load the database using the correct dynamic path
     db_path = ROOT_DIR / "data" / "parsed" / "chords_normalized.json"
     if not db_path.exists():
         raise FileNotFoundError(f"Normalized database not found at: {db_path}")
@@ -18,31 +18,31 @@ def generate_all_sequences():
     chords = data["chords"]
     progressions = data["progressions"]
     
-    # Беремо всі активні акорди (ті, що мають переходи)
+    # Take all active chords (those that have transitions)
     active_chords = [c for c in progressions if len(progressions[c]) > 0]
     print(f"🎵 Active chords available: {len(active_chords)}")
     
     results = []
     
-    # Алгоритм вибору стартових акордів
+    # Algorithm for selecting starting chords
     for chord in sorted(active_chords)[:115]:  
         seq = [chord]
         current = chord
         used = {chord}
         
-        # Довжина послідовності (6-10 акордів випадково)
+        # Progression length (6-10 chords randomly)
         length = random.randint(6, 10)
         
         for step in range(length - 1):
             options = progressions.get(current, [])
             
-            # Фільтруємо повторення
+            # Filter repeats
             options = [opt for opt in options if opt['name'] not in used]
             
             if not options:
                 break
             
-            # Вибираємо випадковий переход
+            # Select a random transition
             chosen = random.choice(options)
             seq.append(chosen['name'])
             used.add(chosen['name'])
@@ -97,7 +97,7 @@ def print_sequences(results, format_type="simple"):
             print(f"     Tension flow: {' | '.join(tensions)}")
 
 def save_to_file(results):
-    # Динамічні шляхи для збереження текстових звітів
+    # Dynamic paths for saving text reports
     output_main = ROOT_DIR / "data" / "generated" / "115_sequences.txt"
     output_only = ROOT_DIR / "data" / "generated" / "sequences_only.txt"
     
