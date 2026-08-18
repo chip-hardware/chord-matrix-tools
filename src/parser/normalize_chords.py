@@ -2,7 +2,7 @@ import json
 import re
 from pathlib import Path
 
-# Визначаємо глобальний корінь проєкту (на 2 рівні вгору від src/parser/)
+# Define the global project root (go up 2 levels from src/parser/)
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 def fix_flat_notation(name: str) -> str:
