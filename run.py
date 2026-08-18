@@ -3,7 +3,7 @@ import sys
 import subprocess
 from pathlib import Path
 
-# Визначаємо корінь проєкту
+# Define the root directory of the project
 ROOT_DIR = Path(__file__).resolve().parent
 
 def print_menu():
@@ -28,7 +28,7 @@ def run_script(script_path):
         script_dir = script_abs_path.parent
         script_name = script_abs_path.name
         
-        # Запускаємо скрипт у його власній директорії, щоб не ламалися відносні шляхи
+        # Run the script in its own directory to prevent relative path breakage
         subprocess.run([sys.executable, script_name], cwd=script_dir, check=True)
     except subprocess.CalledProcessError as e:
         print(f"\n❌ [Error] Script failure: {e}")
