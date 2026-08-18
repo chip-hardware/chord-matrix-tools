@@ -20,7 +20,7 @@ class MIDIExporter:
         chord_duration: int = 480,
         octave: int = 4
     ):
-        """Експортує послідовність акордів у MIDI"""
+        """Exports a chord progression to a MIDI file"""
         mid = MidiFile()
         track = MidiTrack()
         mid.tracks.append(track)
@@ -38,7 +38,7 @@ class MIDIExporter:
                 track.append(Message('note_on', note=note, velocity=100, time=time))
                 time = 0
             
-            # Note Off після тривалості
+            # Note Off 
             for note in notes:
                 track.append(Message('note_off', note=note, velocity=100, time=chord_duration))
                 time = 0
@@ -47,20 +47,20 @@ class MIDIExporter:
     
     def _chord_to_notes(self, chord_name: str, octave: int) -> List[int]:
         """Перетворює назву акорду на ноти"""
-        # Спрощена реалізація
+        # Simply
         root = chord_name[0]
         if len(chord_name) > 1 and chord_name[1] in '#b':
             root += chord_name[1]
         
         root_note = self.note_map.get(root, 60) + (octave - 4) * 12
         
-        # Основна тріада
+        # Main triada
         if 'm' in chord_name or 'min' in chord_name:
             notes = [root_note, root_note + 3, root_note + 7]  # minor
         else:
             notes = [root_note, root_note + 4, root_note + 7]  # major
         
-        # 7-і акорди
+        # 7th chords
         if '7' in chord_name and 'maj7' not in chord_name:
             notes.append(root_note + 10)  # 7
         elif 'maj7' in chord_name:

@@ -1,7 +1,7 @@
 import click
 import json
 from pathlib import Path
-# Імпортуємо ваш робочий генератор з ядра системи
+# Import your working generator from the system core
 from src.core.harmony_generator import SmartHarmonyGenerator
 from src.export.export import export_sequence_to_midi
 
@@ -26,7 +26,7 @@ def generate(start, length, tension, count, export_midi):
         click.echo(f"❌ {e}")
         return
     
-    # Визначаємо рівень напруги, якщо він заданий
+    # Determine the tension level if specified
     max_t = None
     if tension and tension.startswith('T'):
         try:
@@ -69,7 +69,7 @@ def info(chord):
     chords = data.get("chords", {})
     progressions = data.get("progressions", {})
     
-    # Нормалізуємо введення
+    # Normalize
     chord_key = chord.lower().capitalize()
     
     if chord_key in chords:
@@ -82,7 +82,7 @@ def info(chord):
         next_chords = progressions.get(chord_key, [])
         if next_chords:
             click.echo("\n🔗 Available Transitions:")
-            for nc in next_chords[:8]:  # Показуємо перші 8 переходів
+            for nc in next_chords[:8]:  # Show first 8 transitions
                 click.echo(f"    → {nc['name']:<8} [Tension: {nc.get('tension', '?')}]")
     else:
         click.echo(f"❌ Chord '{chord}' not found in the parsed database matrix.")

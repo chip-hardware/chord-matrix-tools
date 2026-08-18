@@ -10,7 +10,7 @@ class PDFExtractor:
         self.text = ""
     
     def extract_all_pages(self) -> str:
-        """Витягує весь текст з PDF"""
+        """Extracts all text from PDF"""
         full_text = ""
         with pdfplumber.open(self.pdf_path) as pdf:
             for page in pdf.pages:
@@ -22,7 +22,7 @@ class PDFExtractor:
         return self.text
     
     def extract_page_range(self, start: int, end: int) -> str:
-        """Витягує діапазон сторінок"""
+        """Extracts a range of pages"""
         text = ""
         with pdfplumber.open(self.pdf_path) as pdf:
             for i in range(start - 1, end):
@@ -31,7 +31,7 @@ class PDFExtractor:
         return text
     
     def extract_images(self, output_dir: str):
-        """Витягує зображення (ноти, аплікатури)"""
+        """Extracts images (notes, fingerings)"""
         import fitz
         pdf = fitz.open(self.pdf_path)
         output_path = Path(output_dir)
@@ -45,10 +45,10 @@ class PDFExtractor:
                 pix = fitz.Pixmap(pdf, xref)
                 if pix.n - pix.alpha < 4:
                     pix.save(output_path / f"page_{page_num+1}_img_{img_index}.png")
-        pdf.close()  # <-- Тут закриваємо PDF
+        pdf.close()
     
     def save_text(self, output_path: str = "data/raw/extracted_text.txt"):
-        """Зберігає витягнутий текст у файл"""
+        """Saves extracted text to a file"""
         if not self.text:
             self.extract_all_pages()
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)

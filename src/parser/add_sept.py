@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-# Динамічно визначаємо корінь проєкту (на 2 рівні вгору від src/parser/)
+# Dynamically determine the project root (go up 2 levels from src/parser/)
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 def extend_triads_to_sevenths():
@@ -12,7 +12,7 @@ def extend_triads_to_sevenths():
         print(f"❌ Database not found at: {db_path}. Please run normalization first.")
         return
 
-    # Створюємо резервну копію перед мутацією
+    # Create a backup before mutation
     import shutil
     shutil.copy(str(db_path), str(backup_path))
     print(f"✅ Created a safe database backup at: {backup_path.name}")
@@ -23,7 +23,7 @@ def extend_triads_to_sevenths():
     chords = data["chords"]
     progressions = data["progressions"]
 
-    # Явний маппінг: тризвук -> його септакорди
+    # Explicit mapping: triad -> its seventh chords
     chord_family = {}
     for chord in chords.keys():
         if not any(chord.endswith(x) for x in ['7', 'maj7', 'min7', 'dim7']):

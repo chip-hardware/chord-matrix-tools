@@ -2,14 +2,14 @@ import json
 from collections import Counter
 from pathlib import Path
 
-# Динамічно визначаємо корінь проєкту (піднімаємося на 3 рівні вгору від src/cli/analyze_db.py)
+# Dynamically determine the project root (go up 3 levels from src/cli/analyze_db.py)
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 def analyze_database():
-    # Використовуємо нормалізовану базу, щоб аналітика була точною
+    # Use the normalized database for accurate analytics
     db_path = ROOT_DIR / "data" / "parsed" / "chords_normalized.json"
     
-    # Якщо нормалізованої немає, спробуємо взяти базову
+    # If normalized doesn't exist, try the base one
     if not db_path.exists():
         db_path = ROOT_DIR / "data" / "parsed" / "chords.json"
         
@@ -26,14 +26,14 @@ def analyze_database():
     chords = data["chords"]
     progressions = data["progressions"]
 
-    # 1. Топ акордів за кількістю вихідних переходів
+    # 1. Top chords by number of outgoing transitions
     print("\n🏆 TOP-10 Chords by outgoing transitions count:")
     print("-" * 45)
     sorted_chords = sorted(progressions.items(), key=lambda x: len(x[1]), reverse=True)
     for i, (name, prog) in enumerate(sorted_chords[:10], 1):
         print(f"  {i:2d}. {name:<10} : {len(prog)} transitions")
 
-    # 2. Пошук глухих кутів (Dead Ends)
+    # 2. Find Dead Ends
     print("\n🔍 Dead-End Chords (Have entry points, but NO exit transitions):")
     print("-" * 45)
     chord_names = set(chords.keys())
@@ -41,14 +41,14 @@ def analyze_database():
     dead_ends = chord_names - prog_names
     
     if dead_ends:
-        for name in sorted(dead_ends)[:15]:  # покажемо трохи більше, до 15
+        for name in sorted(dead_ends)[:15]:  # show a bit more, up to 15
             print(f"  • {name}")
         if len(dead_ends) > 15:
             print(f"  ... and {len(dead_ends) - 15} more dead ends.")
     else:
         print("  🟢 Perfect! No dead-end chords found in this database.")
 
-    # 3. Найпопулярніші цільові акорди (куди переходять найчастіше)
+    # 3. Most popular target chords (where they go most often)
     print("\n🎯 TOP-10 Most popular target chords (Inbound traffic):")
     print("-" * 45)
     targets = []

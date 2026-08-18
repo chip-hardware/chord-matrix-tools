@@ -13,7 +13,7 @@ class ChordDatabase:
             self.load(data_path)
     
     def load(self, data_path: str):
-        """Завантажує базу даних з JSON"""
+        """Loads the database from JSON"""
         with open(data_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
             self.chords = data.get('chords', {})
@@ -21,7 +21,7 @@ class ChordDatabase:
             self.tonalities = data.get('tonalities', {})
     
     def save(self, data_path: str):
-        """Зберігає базу даних у JSON"""
+        """Saves the database to JSON"""
         data = {
             'chords': self.chords,
             'progressions': dict(self.progressions),
@@ -31,15 +31,15 @@ class ChordDatabase:
             json.dump(data, f, indent=2, ensure_ascii=False)
     
     def get_chord(self, name: str) -> Optional[Dict]:
-        """Отримує інформацію про акорд"""
+        """Retrieves chord information"""
         return self.chords.get(name)
     
     def get_next_chords(self, chord_name: str) -> List[Dict]:
-        """Отримує всі можливі наступні акорди"""
+        """Retrieves all possible next chords"""
         return self.progressions.get(chord_name, [])
     
     def get_next_by_criteria(self, chord_name: str, **criteria) -> List[Dict]:
-        """Отримує наступні акорди за критеріями"""
+        """Retrieves next chords by criteria"""
         options = self.get_next_chords(chord_name)
         filtered = options
         

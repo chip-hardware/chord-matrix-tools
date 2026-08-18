@@ -5,7 +5,7 @@ from typing import List, Dict, Optional, Set
 
 class SmartHarmonyGenerator:
     def __init__(self, db_path: Optional[str] = None):
-        # Автоматично визначаємо корінь проєкту (піднімаємося на 2 рівні вгору від src/core/)
+        # Automatically determine the project root (go up 2 levels from src/core/)
         ROOT_DIR = Path(__file__).resolve().parent.parent.parent
         
         if db_path is None:
