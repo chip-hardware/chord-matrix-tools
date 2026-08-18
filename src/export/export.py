@@ -47,7 +47,6 @@ def export_sequence_to_midi(sequence, filename, tempo=120, duration=480):
     track = MidiTrack()
     mid.tracks.append(track)
     
-    # ВИПРАВЛЕНО: Правильне встановлення темпу в мікросекундах за допомогою mido.bpm2tempo
     microseconds_per_beat = mido.bpm2tempo(tempo)
     track.append(MetaMessage('set_tempo', tempo=microseconds_per_beat))
     
@@ -59,7 +58,6 @@ def export_sequence_to_midi(sequence, filename, tempo=120, duration=480):
             track.append(Message('note_on', note=note, velocity=100, time=time))
             time = 0
         
-        # Перша нота тримає тривалість (duration), інші йдуть одночасно за нею (time=0)
         first_note = True
         for note in notes:
             t = duration if first_note else 0
